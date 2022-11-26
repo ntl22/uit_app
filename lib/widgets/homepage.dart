@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './lesson.dart';
+import './game.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -61,11 +63,21 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {}, 
+                onPressed: () => 
+                  Navigator.push(context, 
+                  MaterialPageRoute(
+                    builder: (context) => const LessonPage()
+                  )
+                ), 
                 child: const Text("Bài học cuộc sống")
               ),
               ElevatedButton(
-                onPressed: () {}, 
+                onPressed: () => 
+                  Navigator.push(context, 
+                  MaterialPageRoute(
+                    builder: (context) => const GamePage()
+                  )
+                ),
                 child: const Text("Game")
               )
           ],
