@@ -21,3 +21,25 @@ class IsDevelopingDialogue extends StatelessWidget {
     );
   }
 }
+
+class EndOfNewsDialogue extends StatelessWidget {
+  const EndOfNewsDialogue({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Warning dialog'),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: const [
+            Text('End of news!'),
+            Text('Please return later...')
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+      ],
+    );
+  }
+}

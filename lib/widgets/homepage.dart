@@ -217,19 +217,6 @@ class _HomePageState extends State<HomePage> {
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(8),
                     )),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 5.0),
-                      ),
-                      Text("Home", style: TextStyle(color: Colors.white)),
-                      Text("About", style: TextStyle(color: Colors.white)),
-                      Text("Contact", style: TextStyle(color: Colors.white))
-                    ],
-                  ),
-                ),
               ),
             ),
           )
