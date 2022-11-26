@@ -6,10 +6,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'UIT Hackathon',
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
+      // theme: ThemeData(scaffoldBackgroundColor: Colors.blue),
       home: const HomePage(title: 'UIT'),
     );
   }
@@ -35,26 +34,59 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+    var screenSize = MediaQuery.of(context).size;
 
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('This button is pushed many times: '),
-            Text('$_counter')
+    return Scaffold(
+        // body: Column(
+        //   children: <Widget>[
+        //     ClipPath(
+        //       clipper: TitleCustomClipper(),
+        //       child: Container(
+        //         height: screenSize.height * 0.4,
+        //         decoration: BoxDecoration(
+        //           gradient: LinearGradient(
+        //               begin: Alignment.bottomLeft,
+        //               end: Alignment.topRight,
+        //               colors: [Colors.red, Colors.black]),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        appBar: AppBar(
+          title: const Text('FC Con Meo'),
+        ),
+        body: Center(
+            child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {}, 
+                child: const Text("Bài học cuộc sống")
+              ),
+              ElevatedButton(
+                onPressed: () {}, 
+                child: const Text("Game")
+              )
           ],
         )
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       )
     );
   }
 }
 
+// class TitleCustomClipper extends CustomClipper<Path> {
+//   @override
+//   Path getClip(Size size) {
+//     var path = Path();
+//     path.lineTo(0, size.height);
+//     path.lineTo(size.width, size.height);
+//     path.lineTo(size.width, 0);
+
+//     path.close();
+//     return path;
+//   }
+
+//   @override
+//   bool shouldReclip(CustomClipper<Path> oldClipper) => this != oldClipper;
+// }
