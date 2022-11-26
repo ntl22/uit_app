@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:uit_app/widgets/game.dart';
 import './lesson.dart';
-import './game.dart';
+import './dialog.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,7 +13,50 @@ class MyApp extends StatelessWidget {
       title: 'UIT Hackathon',
       theme: ThemeData(fontFamily: 'Lato'),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(title: 'logo'),
+      home: const Splash(),
+    );
+  }
+}
+
+class Splash extends StatefulWidget {
+  const Splash({super.key});
+
+  @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+    _navigateToHomeScreen();
+  }
+
+  void _navigateToHomeScreen() async {
+    await Future.delayed(Duration(milliseconds: 1500), () {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => HomePage(title: 'logo')));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Container(
+        width: screenSize.width,
+        height: screenSize.height,
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(27, 124, 192, 1),
+        ),
+        child: Center(
+          child: Image.asset(
+            'image/splash.png',
+            scale: 5,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -97,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                           "Save the\nEnvironment",
                           style: TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Merriweather',
+                              fontFamily: 'Lato',
                               fontSize: 30),
                         )),
                     Positioned(
@@ -120,7 +164,7 @@ class _HomePageState extends State<HomePage> {
               child: const Text(
                 "Lessons",
                 textAlign: TextAlign.left,
-                style: TextStyle(fontFamily: 'Merriweather', fontSize: 25),
+                style: TextStyle(fontFamily: 'Lato', fontSize: 25),
               )),
           Positioned(
               top: screenSize.height * .43,
@@ -130,30 +174,20 @@ class _HomePageState extends State<HomePage> {
                 height: screenSize.height * 0.3,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  // children: List.generate(3, (index) {
-                  //   bool first = (index == 0);
-                  //   bool last = (index == 2);
-                  //   return Padding(
-                  //     padding: EdgeInsets.only(
-                  //         left: !first ? 10.0 : 5.0, right: !last ? 10.0 : 5.0),
-                  //     child: LessonListTile(index: index + 1),
-                  //   );
-                  // }
-                  // ),
                   children: const [
                     Padding(
                       padding: EdgeInsets.only(left: 5.0, right: 10.0),
                       child: LessonListTile(
-                          index: 1, percent: 0.4, name: 'Plastic'),
+                          index: 1, percent: 0.4, name: 'Plastic', page: PlasticPage()),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 10.0, right: 10.0),
                       child:
-                          LessonListTile(index: 2, percent: 0, name: 'Garbage'),
+                          LessonListTile(index: 2, percent: 0, name: 'Saving'),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 10.0, right: 5.0),
-                      child: LessonListTile(index: 3, percent: 0, name: 'Air'),
+                      child: LessonListTile(index: 3, percent: 0, name: 'Garbage'),
                     ),
                   ],
                 ),
@@ -209,9 +243,11 @@ class LessonListTile extends StatelessWidget {
   final int index;
   final double percent;
   final String name;
+  final Widget page;
 
   const LessonListTile(
       {super.key,
+      this.page = const IsDevelopingDialogue(),
       required this.index,
       required this.percent,
       required this.name});
@@ -222,7 +258,7 @@ class LessonListTile extends StatelessWidget {
 
     return GestureDetector(
         onTap: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => GamePage())),
+            context, MaterialPageRoute(builder: (context) => page)),
         child: Container(
           width: screenSize.width * .4,
           decoration: BoxDecoration(
@@ -243,15 +279,16 @@ class LessonListTile extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   )),
               Positioned(
-                top: screenSize.height * .3 * .8,
-                left: screenSize.width * .4 * .75,
-                child: CircularPercentIndicator(
-                  radius: 12.0,
-                  animation: true,
-                  animationDuration: 600,
-                  percent: percent
-                )
-              )
+                  top: screenSize.height * .3 * .8,
+                  left: screenSize.width * .4 * .75,
+                  child: CircularPercentIndicator(
+                      radius: 16.5,
+                      progressColor: Colors.green,
+                      backgroundColor: Color.fromARGB(145, 130, 33, 1),
+                      animation: true,
+                      animationDuration: 600,
+                      center: Text("${(percent*100).toInt()}%", style: TextStyle(fontSize: 10),),
+                      percent: percent))
             ],
           ),
         ));
