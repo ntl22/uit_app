@@ -8,9 +8,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+
       title: 'UIT Hackathon',
-      home: const HomePage(title: 'UIT'),
+      theme: ThemeData(fontFamily: 'Lato'),
+      debugShowCheckedModeBanner: false,
+      home: const HomePage(title: 'logo'),
     );
   }
 }
@@ -39,11 +41,11 @@ class _HomePageState extends State<HomePage> {
           Positioned(
               top: 0,
               left: 0,
-              child: Container(
+              child: Container( //banner
                 width: screenSize.width,
                 height: screenSize.height * .35,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(159, 159, 159, 1),
+                decoration: BoxDecoration( //
+                  color: Color.fromRGBO(27, 124, 192, 1),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(0),
                     topRight: Radius.circular(0),
@@ -77,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                                     topRight: Radius.circular(8),
                                     bottomLeft: Radius.circular(8),
                                     bottomRight: Radius.circular(8)),
-                                color: Color.fromRGBO(217, 217, 217, 1)),
+                                color: Color.fromRGBO(255, 178, 0, 1)),
                           ),
                         ))
                   ],
@@ -87,9 +89,10 @@ class _HomePageState extends State<HomePage> {
               top: screenSize.height * .37,
               left: screenSize.width * .05,
               child: const Text(
-                "Những bài học",
+                "Lessons",
+
                 textAlign: TextAlign.left,
-                style: TextStyle(fontFamily: 'Inter', fontSize: 20),
+                style: TextStyle(fontFamily: 'Merriweather', fontSize: 25),
               )),
           Positioned(
               top: screenSize.height * .43,
@@ -127,11 +130,12 @@ class LessonListTile extends StatelessWidget {
           MaterialPageRoute(builder: (context) => GamePage())),
       child: Container(
           width: screenSize.width * 0.3,
+
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(24)),
-            color: Color.fromRGBO(217, 217, 217, 1),
+            color: Color.fromRGBO(255, 203, 66 ,1),
           ),
-          child: Center(child: Text('$index', textAlign: TextAlign.center))
+          child: Center(child: Text('Lessons', textAlign: TextAlign.left, style: TextStyle(color: Color.fromRGBO(27, 124, 192 ,0.8) , fontSize: 25)))
       ),
     );
   }
