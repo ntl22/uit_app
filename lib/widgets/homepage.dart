@@ -10,7 +10,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UIT Hackathon',
-      // theme: ThemeData(scaffoldBackgroundColor: Colors.blue),
       home: const HomePage(title: 'UIT'),
     );
   }
@@ -26,79 +25,114 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-        // body: Column(
-        //   children: <Widget>[
-        //     ClipPath(
-        //       clipper: TitleCustomClipper(),
-        //       child: Container(
-        //         height: screenSize.height * 0.4,
-        //         decoration: BoxDecoration(
-        //           gradient: LinearGradient(
-        //               begin: Alignment.bottomLeft,
-        //               end: Alignment.topRight,
-        //               colors: [Colors.red, Colors.black]),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-        appBar: AppBar(
-          title: const Text('FC Con Meo'),
-        ),
-        body: Center(
-            child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () => 
-                  Navigator.push(context, 
-                  MaterialPageRoute(
-                    builder: (context) => const LessonPage()
-                  )
-                ), 
-                child: const Text("Bài học cuộc sống")
-              ),
-              ElevatedButton(
-                onPressed: () => 
-                  Navigator.push(context, 
-                  MaterialPageRoute(
-                    builder: (context) => const GamePage()
-                  )
+        body: Container(
+      width: screenSize.width,
+      height: screenSize.height,
+      decoration: BoxDecoration(color: Color.fromRGBO(255, 255, 255, 1)),
+      child: Stack(
+        children: [
+          Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                width: screenSize.width,
+                height: screenSize.height * .35,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(159, 159, 159, 1),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(0),
+                    bottomLeft: Radius.circular(14),
+                    bottomRight: Radius.circular(14),
+                  ),
                 ),
-                child: const Text("Game")
-              )
-          ],
-        )
-      )
-    );
+                child: Stack(
+                  children: [
+                    Positioned(
+                        top: screenSize.width * .1,
+                        left: screenSize.width * .05,
+                        child: Text(
+                          widget.title,
+                          style: TextStyle(fontSize: 30),
+                        )),
+                    Positioned(
+                        top: screenSize.height * .28,
+                        left: screenSize.width * .7,
+                        child: GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LessonPage())),
+                          child: Container(
+                            width: screenSize.width * 0.2,
+                            height: screenSize.height * 0.04,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    topRight: Radius.circular(8),
+                                    bottomLeft: Radius.circular(8),
+                                    bottomRight: Radius.circular(8)),
+                                color: Color.fromRGBO(217, 217, 217, 1)),
+                          ),
+                        ))
+                  ],
+                ),
+              )),
+          Positioned(
+              top: screenSize.height * .37,
+              left: screenSize.width * .05,
+              child: const Text(
+                "Những bài học",
+                textAlign: TextAlign.left,
+                style: TextStyle(fontFamily: 'Inter', fontSize: 20),
+              )),
+          Positioned(
+              top: screenSize.height * .43,
+              left: 0,
+              child: SizedBox(
+                width: screenSize.width,
+                height: screenSize.height * 0.3,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(9, (index) =>
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: LessonListTile(index: index + 1),
+                    ),
+                  ),
+                ),
+              ))
+        ],
+      ),
+    ));
   }
 }
 
-// class TitleCustomClipper extends CustomClipper<Path> {
-//   @override
-//   Path getClip(Size size) {
-//     var path = Path();
-//     path.lineTo(0, size.height);
-//     path.lineTo(size.width, size.height);
-//     path.lineTo(size.width, 0);
+class LessonListTile extends StatelessWidget {
+  final int index;
 
-//     path.close();
-//     return path;
-//   }
+  const LessonListTile({super.key, required this.index});
 
-//   @override
-//   bool shouldReclip(CustomClipper<Path> oldClipper) => this != oldClipper;
-// }
+  @override
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
+    return GestureDetector(
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => GamePage())),
+      child: Container(
+          width: screenSize.width * 0.3,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(24)),
+            color: Color.fromRGBO(217, 217, 217, 1),
+          ),
+          child: Center(child: Text('$index', textAlign: TextAlign.center))
+      ),
+    );
+  }
+}

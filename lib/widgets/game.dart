@@ -7,10 +7,12 @@ class GamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Trò chơi"),
-        leading: BackButton(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_rounded),
           onPressed: () => Navigator.pop(context),
         ),
+        title: const Text("Game"),
+        centerTitle: true,
       ),
     );
   }
